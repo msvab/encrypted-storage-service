@@ -3,13 +3,13 @@
 Simple REST service for encrypted data storage.
 
 ### API
-* `PUT /data/:id`  
+* #### PUT /data/:id
   ##### Request JSON  
   `encryption_key` Key that will be used to encrypt the data  
   `value=[*]` Can be anything  
   ###### Example
   `{"encryption_key":"...", "value":"..."}`
-* `GET /data/search?id=&encryption_key=`  
+* #### GET /data/search?id=&encryption_key=
    ##### Query Params (required)  
    `id=[string]` ID can be either an exact value or it can end with an `*` to perform wildcard search.  
    `encryption_key=[string]` Encryption key that was used to store these values
