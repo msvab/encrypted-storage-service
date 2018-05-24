@@ -12,13 +12,16 @@ const db = require('../../src/db/db');
 describe('routes : search', () => {
     const ID1 = 'id-1';
     const ID2 = 'id-2';
+    const ID3 = 'id-3';
     const KEY = 'very-secure-key';
     const VALUE1 = '123';
     const VALUE2 = '456';
+    const VALUE_OBJECT = {string: "123", number: 123, bool: true};
 
     beforeEach(async () => {
         await service.storeData(ID1, KEY, VALUE1);
         await service.storeData(ID2, KEY, VALUE2);
+        await service.storeData(ID3, KEY, VALUE_OBJECT);
     });
 
     afterEach(async () => {
@@ -56,6 +59,14 @@ describe('routes : search', () => {
             res.status.should.eql(200);
             res.type.should.eql('application/json');
             res.body.should.deep.contain({id: ID1, value: VALUE1});
+        });
+
+        it('should return stored data with complex object', async () => {
+            const res = await chai.request(server).get(`/data/search?id=${ID3}&encryption_key=${KEY}`);
+
+            res.status.should.eql(200);
+            res.type.should.eql('application/json');
+            res.body.should.deep.contain({id: ID3, value: VALUE_OBJECT});
         });
 
         it('should perform a search when id contains wildcard', async () => {
