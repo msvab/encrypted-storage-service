@@ -25,9 +25,9 @@ describe('routes : search', () => {
         await db.deleteAll();
     });
 
-    describe('GET /search', () => {
+    describe('GET /data/search', () => {
         it('should return empty array for unknown ID', async () => {
-            const res = await chai.request(server).get(`/search?id=unknown&encryption_key=${KEY}`);
+            const res = await chai.request(server).get(`/data/search?id=unknown&encryption_key=${KEY}`);
 
             res.status.should.eql(200);
             res.type.should.eql('application/json');
@@ -35,7 +35,7 @@ describe('routes : search', () => {
         });
 
         it('should return empty array for wrong encryption key', async () => {
-            const res = await chai.request(server).get(`/search?id=${ID1}&encryption_key=wrong-key`);
+            const res = await chai.request(server).get(`/data/search?id=${ID1}&encryption_key=wrong-key`);
 
             res.status.should.eql(200);
             res.type.should.eql('application/json');
@@ -43,7 +43,7 @@ describe('routes : search', () => {
         });
 
         it('should return empty array when no ID matches the query', async () => {
-            const res = await chai.request(server).get(`/search?id=hello*&encryption_key=${KEY}`);
+            const res = await chai.request(server).get(`/data/search?id=hello*&encryption_key=${KEY}`);
 
             res.status.should.eql(200);
             res.type.should.eql('application/json');
@@ -51,7 +51,7 @@ describe('routes : search', () => {
         });
 
         it('should return stored data', async () => {
-            const res = await chai.request(server).get(`/search?id=${ID1}&encryption_key=${KEY}`);
+            const res = await chai.request(server).get(`/data/search?id=${ID1}&encryption_key=${KEY}`);
 
             res.status.should.eql(200);
             res.type.should.eql('application/json');
@@ -59,7 +59,7 @@ describe('routes : search', () => {
         });
 
         it('should perform a search when id contains wildcard', async () => {
-            const res = await chai.request(server).get(`/search?id=id*&encryption_key=${KEY}`);
+            const res = await chai.request(server).get(`/data/search?id=id*&encryption_key=${KEY}`);
 
             res.status.should.eql(200);
             res.type.should.eql('application/json');
@@ -67,7 +67,7 @@ describe('routes : search', () => {
         });
 
         it('should return 400 when required params are not provided', async () => {
-            const res = await chai.request(server).get('/search');
+            const res = await chai.request(server).get('/data/search');
 
             res.status.should.eql(400);
         });

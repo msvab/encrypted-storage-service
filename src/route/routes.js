@@ -6,6 +6,6 @@ const search = require('./search');
 
 router
     .put('/data/:id', koaBody(), store)
-    .get('/search', search);
+    .get('/data/search', search);
 
 module.exports = router.routes();

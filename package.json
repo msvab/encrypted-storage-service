@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node ./src/server.js",
-    "test": "node $NODE_DEBUG_OPTION ./node_modules/mocha/bin/_mocha ./test/**/*.test.js"
+    "test": "node $NODE_DEBUG_OPTION ./node_modules/mocha/bin/_mocha ./test/**/*.test.js --exit"
   },
   "author": "Michal Šváb",
   "license": "UNLICENSED",
